@@ -25,7 +25,7 @@ public class SLL <T extends Comparable<T>>{
 		return size;
 	}
 	
-	private int compare (T object1, T object2) {
+	private int compare(T object1, T object2) {
 		if (comparator == null)
 			return object1.compareTo(object2);
 		else

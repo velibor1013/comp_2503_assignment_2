@@ -64,20 +64,19 @@ public class A2 {
 	}
 	
 	private String cleanWord(String word) {
-		if (word != null) { // check to make sure word is not null, in case of error
-            word = word.trim(); // trim off blank spaces
-            if (!word.equals("")) { // check for blank word 
-            
-	            //remove apostrophe
-	            int index = word.indexOf("'"); 
+	    if (word != null) { // check to make sure word is not null, in case of error
+	        word = word.trim(); // trim off blank spaces
+	        if (!word.isEmpty()) { // check for blank word 
+	            // Remove apostrophe
+	            int index = word.indexOf("'");
 	            if (index > 0) 
-	            	word = word.substring(0,index);
-	
-	            // Remove special characters and convert to lower case
-	            word = word.replaceAll("[^a-zA-Z ]", "").toLowerCase();
+	                word = word.substring(0, index);
+	            
+	            // Remove non-alphabetic and non-digit characters and convert to lower case
+	            word = word.replaceAll("[^a-zA-Z0-9 ]", "").toLowerCase();
 	        }
-        }
-		return word;
+	    }
+	    return word;
 	}
 	
 
