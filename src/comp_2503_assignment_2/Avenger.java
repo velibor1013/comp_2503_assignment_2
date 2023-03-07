@@ -47,4 +47,12 @@ public class Avenger implements Comparable <Avenger>{
        }
 		return Integer.compare(this.frequency, o.frequency);
 	}
+	
+	public Avenger implements Comparator<Avenger> {
+		public int compare (Avenger a, Avenger, b)
+		{
+			return a.heroName.compareTo(b.heroName);
+		}
+	}
+	
 }
