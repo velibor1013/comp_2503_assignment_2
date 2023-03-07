@@ -59,6 +59,21 @@ public class A2 {
             String cleanedWord = cleanWord(sc.next());
 			
             System.out.println(cleanedWord);
+            for (int i = 0; i < avengerRoster.length; i++) {
+                for (int j = 0; j < avengerRoster[i].length; j++) {
+                    if (cleanedWord.equals(avengerRoster[i][j])) {
+                        Avenger currentAvenger = new Avenger(avengerRoster[i][0], avengerRoster[i][1], 1);
+                        int index1 = mentionList.indexOf(currentAvenger);
+                        if (index1 == -1) {
+                        	mentionList.addTail(currentAvenger);
+                        } else {
+                        	mentionList.get(index1).setFrequency(mentionList.get(index1).getFrequency() + 1);
+                        }
+                    }
+                }
+            }
+        	totalwordcount++;
+            
         }
 		sc.close();
 	}

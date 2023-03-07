@@ -29,5 +29,15 @@ public class Node <T extends Comparable<T>>{
 	public String toString() {
 		return "Node: " + getData().toString();
 	}
-	
+	public boolean equals(Object obj) {
+	    if (obj == null || !(obj instanceof Node)) {
+	        return false;
+	    }
+	    Node<T> other = (Node<T>) obj;
+	    return this.data.equals(other.data);
+	}
+
+	public int hashCode() {
+	    return data.hashCode();
+	}
 }
