@@ -34,25 +34,17 @@ public class Avenger implements Comparable <Avenger>{
 	
 	@Override
 	public String toString() {
-		return heroAlias + " aka " + heroName + " mentioned " + frequency + " time(s)";
+		return heroName + " aka " + heroAlias + " mentioned " + frequency + " time(s)";
 	}
 	
 	@Override
 	public int compareTo(Avenger o) {
-		if (!sortByFrequency) {
-            if (this.heroAlias.compareTo(o.heroAlias) == 0) {
-           	 return this.heroAlias.compareTo(o.heroAlias);
-            }
-           
-       }
-		return Integer.compare(this.frequency, o.frequency);
+		return this.heroAlias.compareTo(o.heroAlias);
 	}
 	
-	public Avenger implements Comparator<Avenger> {
-		public int compare (Avenger a, Avenger, b)
-		{
-			return a.heroName.compareTo(b.heroName);
-		}
-	}
+	/*
+	 * public Avenger implements Comparator<Avenger> { public int compare (Avenger
+	 * a, Avenger, b) { return a.heroName.compareTo(b.heroName); } }
+	 */
 	
 }

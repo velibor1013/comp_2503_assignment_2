@@ -7,31 +7,80 @@ public class SLL <T extends Comparable<T>>{
 	private Node<T> head, tail;
 	private int size;
 	private Comparator<T> comparator;
-
+	
+	/*
+	 * private class Node { T value; Node next;
+	 * 
+	 * public Node(T value) { this.value = value; this.next = null; } }
+	 */
 	
 	public SLL () {
 		head = null;
+		tail = null;
 		size = 0;
 		comparator = null;
 	}
 	
+	public void nodeToAdd(T data) {
+		addToEnd(data);
+	}
+	
 	public SLL(Comparator<T> externalComp) {
 		head = null;
+		tail = null;
 		size = 0;
 		comparator = externalComp;
 	}
-	
-	public  int size() {
-		return size;
+
+	public int size(){
+		int count = 0;
+		Node<T> mover = head;
+		if(isEmpty())
+			return 0;
+		while(mover != null) {
+			mover = mover.getNext();
+			count++;
+		}
+		return count;
 	}
 	
-	private int compare(T object1, T object2) {
+	public int compare(T object1, T object2) {
 		if (comparator == null)
 			return object1.compareTo(object2);
 		else
 			return comparator.compare(object1, object2);
 	}
-	private void addInOrder(Node<T> n) {
+	
+	public boolean isEmpty(){
+		return (head == null);
+	}
+	
+	
+	public void addToStart(T data) {
+		Node<T> newNode = new Node<>(data);
+		if(isEmpty())
+			head = newNode;
+		else {
+			newNode.setNext(head);
+			head = newNode;
+		}
+	}
+	
+	public void addToEnd(T data) {
+		Node<T> newNode = new Node<>(data);
+		if(head != null){
+			Node<T> curr = head;
+			while(curr.getNext() != null){
+				curr = curr.getNext();
+			}
+			curr.setNext(newNode);
+		}
+		else
+			head = newNode;
+		}
+
+
+	public void addInOrder(Node<T> n) {
 		if (head == null) {
 			head = n;
 			tail = n;
@@ -52,7 +101,8 @@ public class SLL <T extends Comparable<T>>{
 			}
 		}
 	}
-	private void addHead(Node<T> n) {
+	
+	public void addHead(Node<T> n) {
 		if (head == null) {
 			head = n;
 			tail = n;
@@ -62,7 +112,7 @@ public class SLL <T extends Comparable<T>>{
 		}
 	}
 
-	private void addTail(Node<T> n) {
+	public void addTail(Node<T> n) {
 		if (tail == null) { // list is empty
 			head = n;
 			tail = n;
@@ -72,7 +122,48 @@ public class SLL <T extends Comparable<T>>{
 		}
 	}
 	
-	private Node<T> delete(T o) {
+	public Node<T> find(Node<T> key) {
+		Node<T> currentNode = head;
+		while (currentNode != null) {
+			// Visit the node. In this case,
+			// if the data in the currentNode is equal to the key,
+			// return the reference to the node.
+			if (currentNode.getData().equals(key))
+				return currentNode;
+			// else, move to the next node
+			else
+				currentNode = currentNode.getNext();
+		}
+		// Return null if it didn't find the node.
+		return null;
+	}
+	
+	public Node<T> getHead() {
+		return head;
+	}
+	
+	public Node<T> getTail() {
+		return tail;
+	}
+	
+	
+	public boolean exists(Node<T> key) {
+		Node<T> currentNode = head;
+		while (currentNode != null) {
+			// Visit the node. In this case,
+			// if the data in the currentNode is equal to the key,
+			// return the reference to the node.
+			if (currentNode.getData().equals(key))
+				return true;
+			// else, move to the next node
+			else
+				currentNode = currentNode.getNext();
+		}
+		// Return null if it didn't find the node.
+		return false;
+	}
+	
+	public Node<T> delete(T o) {
 		Node<T> currentNode = head;
 		Node<T> previousNode = head;
 		while (currentNode != null) {

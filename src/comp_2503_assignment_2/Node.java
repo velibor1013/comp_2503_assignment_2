@@ -9,7 +9,7 @@ public class Node <T extends Comparable<T>>{
 		data = d;
 		next = null;
 	}
-	
+
 	public T getData() {
 		return data;
 	}
@@ -26,9 +26,9 @@ public class Node <T extends Comparable<T>>{
 		next = n;
 	}
 
-	public String toString() {
-		return "Node: " + getData().toString();
-	}
+	//public String toString() {
+	//	return "Node: " + getData().toString();
+	//}
 	public boolean equals(Object obj) {
 	    if (obj == null || !(obj instanceof Node)) {
 	        return false;
