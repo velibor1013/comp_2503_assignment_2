@@ -124,7 +124,6 @@ public class A2 {
 	        lastSorted = previous;
 	    }
 	    alphabticalList.setTail(lastSorted);
-	    System.out.println("sorting done");
 	}
 	/**
 	 * read the input stream and keep track  
@@ -142,23 +141,26 @@ public class A2 {
 				- if this avenger has already been mentioned, increase the frequency count for the object already in the list.
 				- if this avenger has not been mentioned before, add the newly created avenger to the end of the list, remember to set the frequency.
 		*/ 
-		
-		File file = new File(A2.class.getClassLoader().getResource("input4.txt").getFile());
+		//  /comp_2503_assignment_2/src/input2.txt
+		//  ..//comp_2503_assignment_2//src//input2.txt
+		//File file = new File(A2.class.getClassLoader().getResource("input4.txt").getFile());
+		File file = new File(input.next());
+
 		Scanner sc = new Scanner(file);
-		System.out.println("hello");;
 		while (sc.hasNext()) {
-            String cleanedWord = cleanWord1(sc.next());
-            System.out.println(cleanedWord);
-            for (int i = 0; i < avengerRoster.length; i++) {
-                for (int j = 0; j < avengerRoster[i].length; j++) {
-                    if (cleanedWord.equals(avengerRoster[i][j])) {
-                    	Avenger currentAvenger; 
-                		currentAvenger = new Avenger(avengerRoster[i][0], avengerRoster[i][1], 1);
-                		addToLists(currentAvenger);                		
-                    }
-                }
+            String cleanedWord = cleanWord(sc.next());
+            if (!cleanedWord.isEmpty() || !cleanedWord.equals("")) {
+	            for (int i = 0; i < avengerRoster.length; i++) {
+	                for (int j = 0; j < avengerRoster[i].length; j++) {
+	                    if (cleanedWord.equals(avengerRoster[i][j])) {
+	                    	Avenger currentAvenger; 
+	                		currentAvenger = new Avenger(avengerRoster[i][0], avengerRoster[i][1], 1);
+	                		addToLists(currentAvenger);                		
+	                    }
+	                }
+	            }
+	        	totalwordcount++;
             }
-        	totalwordcount++;
         }
 		sc.close();
 	}
@@ -183,23 +185,7 @@ public class A2 {
 		}
 	}
 	
-	
 	private String cleanWord(String word) {
-		if (word == null) {
-	        throw new IllegalArgumentException("Input word cannot be null");
-	    }
-	    word = word.trim();
-	    if (!word.isEmpty()) {
-	        // Remove apostrophes
-	        word = word.replaceAll("'", "");
-	        
-	        // Remove non-alphanumeric characters and convert to lower case
-	        word = word.replaceAll("[^a-zA-Z0-9 ]", "").toLowerCase();
-	    }
-	    return word;
-	}
-	
-	private String cleanWord1(String word) {
 		if (word != null) { // check to make sure word is not null, in case of error
             word = word.trim(); // trim off blank spaces
             if (!word.equals("")) { // check for blank word 
