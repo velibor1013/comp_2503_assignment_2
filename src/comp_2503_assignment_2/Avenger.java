@@ -7,7 +7,7 @@ public class Avenger implements Comparable <Avenger>{
 	private int frequency;
 	public static boolean sortByFrequency = false;
 	
-	public Avenger(String heroName, String heroAlias, int frequency) {
+	public Avenger(String heroAlias, String heroName , int frequency) {
 		//super();
 		this.heroName = heroName;
 		this.heroAlias = heroAlias;
@@ -34,7 +34,7 @@ public class Avenger implements Comparable <Avenger>{
 	
 	@Override
 	public String toString() {
-		return heroName + " aka " + heroAlias + " mentioned " + frequency + " time(s)";
+		return heroAlias + " aka " + heroName + " mentioned " + frequency + " time(s)";
 	}
 	
 	@Override

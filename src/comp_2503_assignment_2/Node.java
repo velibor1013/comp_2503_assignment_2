@@ -29,6 +29,8 @@ public class Node <T extends Comparable<T>>{
 	//public String toString() {
 	//	return "Node: " + getData().toString();
 	//}
+	
+	@SuppressWarnings("unchecked")
 	public boolean equals(Object obj) {
 	    if (obj == null || !(obj instanceof Node)) {
 	        return false;

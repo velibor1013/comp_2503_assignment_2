@@ -41,7 +41,8 @@ public class SLL <T extends Comparable<T>>{
 			mover = mover.getNext();
 			count++;
 		}
-		return count;
+		size = count;
+		return size;
 	}
 	
 	public int compare(T object1, T object2) {
@@ -56,7 +57,8 @@ public class SLL <T extends Comparable<T>>{
 	}
 	
 	
-	public void addToStart(T data) {
+	@SuppressWarnings("unused")
+	private void addToStart(T data) {
 		Node<T> newNode = new Node<>(data);
 		if(isEmpty())
 			head = newNode;
@@ -66,7 +68,7 @@ public class SLL <T extends Comparable<T>>{
 		}
 	}
 	
-	public void addToEnd(T data) {
+	private void addToEnd(T data) {
 		Node<T> newNode = new Node<>(data);
 		if(head != null){
 			Node<T> curr = head;
@@ -102,7 +104,7 @@ public class SLL <T extends Comparable<T>>{
 		}
 	}
 	
-	public void addHead(Node<T> n) {
+	private void addHead(Node<T> n) {
 		if (head == null) {
 			head = n;
 			tail = n;
@@ -111,8 +113,12 @@ public class SLL <T extends Comparable<T>>{
 			head = n;
 		}
 	}
+	
+	public void setHead(Node<T> n) {
+		head = n;
+	}
 
-	public void addTail(Node<T> n) {
+	private void addTail(Node<T> n) {
 		if (tail == null) { // list is empty
 			head = n;
 			tail = n;
@@ -122,6 +128,21 @@ public class SLL <T extends Comparable<T>>{
 		}
 	}
 	
+	public void setTail(Node<T> n) {
+		tail = n;
+	}
+	
+	
+	
+	public Node<T> getHead() {
+		return head;
+	}
+	
+	public Node<T> getTail() {
+		return tail;
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
 	public Node<T> find(Node<T> key) {
 		Node<T> currentNode = head;
 		while (currentNode != null) {
@@ -138,15 +159,7 @@ public class SLL <T extends Comparable<T>>{
 		return null;
 	}
 	
-	public Node<T> getHead() {
-		return head;
-	}
-	
-	public Node<T> getTail() {
-		return tail;
-	}
-	
-	
+	@SuppressWarnings("unlikely-arg-type")
 	public boolean exists(Node<T> key) {
 		Node<T> currentNode = head;
 		while (currentNode != null) {

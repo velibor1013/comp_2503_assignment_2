@@ -41,18 +41,48 @@ public class A2 {
 		
 		// Most popular list sorting.
 	    boolean swapped = true;
+	    Node<Avenger> lastSorted = null;
 	    while (swapped) {
 	        swapped = false;
-	        Node<Avenger> current = mostPopularList.getHead();
+	        Node<Avenger> popular = mostPopularList.getHead();
 	        Node<Avenger> previous = null;
-	        while (current.getNext() != null) {
+	        while (popular != lastSorted && popular.getNext() != null) {
+	            if (popular.getData().getFrequency() < popular.getNext().getData().getFrequency()) {
+	                // swap current node with next node
+	                Node<Avenger> temp = popular.getNext();
+	                popular.setNext(temp.getNext());
+	                temp.setNext(popular);
+	                if (previous == null) {
+	                    mostPopularList.setHead(temp);
+	                } else {
+	                    previous.setNext(temp);
+	                }
+	                previous = temp;
+	                swapped = true;
+	            } else {
+	                previous = popular;
+	                popular = popular.getNext();
+	            }
+	        }
+	        lastSorted = previous;
+	    }
+	    mostPopularList.setTail(lastSorted);
+	    
+	    // Least popular list sorting.
+	    swapped = true;
+	    lastSorted = null;
+	    while (swapped) {
+	        swapped = false;
+	        Node<Avenger> current = leastPopularList.getHead();
+	        Node<Avenger> previous = null;
+	        while (current != lastSorted && current.getNext() != null) {
 	            if (current.getData().getFrequency() > current.getNext().getData().getFrequency()) {
 	                // swap current node with next node
 	                Node<Avenger> temp = current.getNext();
 	                current.setNext(temp.getNext());
 	                temp.setNext(current);
 	                if (previous == null) {
-	                	mostPopularList.addHead(temp);
+	                    leastPopularList.setHead(temp);
 	                } else {
 	                    previous.setNext(temp);
 	                }
@@ -63,38 +93,39 @@ public class A2 {
 	                current = current.getNext();
 	            }
 	        }
-	        mostPopularList.addTail(previous); // update tail
+	        lastSorted = previous;
 	    }
+	    leastPopularList.setTail(lastSorted);
 	    
-	    // Alphabetical list sorting.
 	    swapped = true;
+	    lastSorted = null;
 	    while (swapped) {
 	        swapped = false;
-	        Node<Avenger> current = alphabticalList.getHead();
+	        Node<Avenger> alpha = alphabticalList.getHead();
 	        Node<Avenger> previous = null;
-	        while (current != null && current.getNext() != null) {
-	            if (current.getData().getHeroAlias().compareTo(current.getNext().getData().getHeroAlias()) > 0) {
+	        while (alpha != lastSorted && alpha.getNext() != null) {
+	            if (alpha.getData().getHeroAlias().compareTo(alpha.getNext().getData().getHeroAlias()) > 0) {
 	                // swap current node with next node
-	                Node<Avenger> temp = current.getNext();
-	                current.setNext(temp.getNext());
-	                temp.setNext(current);
-	                if (previous == null) {
-	                    alphabticalList.addHead(temp);
+	                Node<Avenger> temp = alpha.getNext();
+	                alpha.setNext(temp.getNext());
+	                temp.setNext(alpha);
+	                if (alpha == alphabticalList.getHead()) {
+	                    alphabticalList.setHead(temp);
 	                } else {
 	                    previous.setNext(temp);
 	                }
 	                previous = temp;
 	                swapped = true;
 	            } else {
-	                previous = current;
-	                current = current.getNext();
+	                previous = alpha;
+	                alpha = alpha.getNext();
 	            }
 	        }
-	        alphabticalList.addTail(previous); // update tail
+	        lastSorted = previous;
 	    }
-	
+	    alphabticalList.setTail(lastSorted);
+	    System.out.println("sorting done");
 	}
-
 	/**
 	 * read the input stream and keep track  
 	 * how many times avengers are mentioned by alias or last name.
@@ -111,7 +142,8 @@ public class A2 {
 				- if this avenger has already been mentioned, increase the frequency count for the object already in the list.
 				- if this avenger has not been mentioned before, add the newly created avenger to the end of the list, remember to set the frequency.
 		*/ 
-		File file = new File(A2.class.getClassLoader().getResource("input2.txt").getFile());
+		
+		File file = new File(A2.class.getClassLoader().getResource("input4.txt").getFile());
 		Scanner sc = new Scanner(file);
 		System.out.println("hello");;
 		while (sc.hasNext()) {
@@ -122,7 +154,7 @@ public class A2 {
                     if (cleanedWord.equals(avengerRoster[i][j])) {
                     	Avenger currentAvenger; 
                 		currentAvenger = new Avenger(avengerRoster[i][0], avengerRoster[i][1], 1);
-                		addToMentionList(currentAvenger);                		
+                		addToLists(currentAvenger);                		
                     }
                 }
             }
@@ -132,7 +164,7 @@ public class A2 {
 	}
 	
 	//Method to add the Avengers as they are found in the text.
-	private void addToMentionList(Avenger currentAvenger) {
+	private void addToLists(Avenger currentAvenger) {
 		Node<Avenger> current = mentionList.getHead();
 		boolean found = false;
 		while (current != null) {
@@ -175,6 +207,7 @@ public class A2 {
 		System.out.println("Total number of words: " + totalwordcount);
 		System.out.println("Number of Avengers Mentioned: " + mentionList.size());
 		System.out.println();
+		int count = 0;
 
 		System.out.println("All avengers in the order they appeared in the input stream:");
 		// Todo: Print the list of avengers in the order they appeared in the input
@@ -185,27 +218,31 @@ public class A2 {
 	        mention = mention.getNext();
 	    }
 
-		System.out.println("****************************");
+		System.out.println();
 		
 		System.out.println("Top " + topN + " most popular avengers:");
 		// Todo: Print the most popular avengers, see the instructions for tie breaking
 		// Make sure you follow the formatting example in the sample output
 		Node<Avenger> popular = mostPopularList.getHead();
-	    while (popular != null) {
+	    while (popular != null && count < 4) {
 	        System.out.println(popular.getData().toString());
 	        popular = popular.getNext();
+	        count++;
 	    }
+	    count = 0;
 		System.out.println();
 
 		System.out.println("Top " + topN + " least popular avengers:");
 		// Todo: Print the least popular avengers, see the instructions for tie breaking
 		// Make sure you follow the formatting example in the sample output
 		Node<Avenger> unPopular = leastPopularList.getHead();
-	    while (unPopular != null) {
+	    while (unPopular != null && count < 4) {
 	        System.out.println(unPopular.getData().toString());
 	        unPopular = unPopular.getNext();
+	        count++;
 	    }
-		System.out.println();
+	    System.out.println();
+		System.out.println(leastPopularList.size() +"\n");
 
 		System.out.println("All mentioned avengers in alphabetical order:");
 		// Todo: Print the list of avengers in alphabetical order
