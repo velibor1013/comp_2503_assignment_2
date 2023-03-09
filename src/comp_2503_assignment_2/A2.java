@@ -147,7 +147,7 @@ public class A2 {
 		Scanner sc = new Scanner(file);
 		System.out.println("hello");;
 		while (sc.hasNext()) {
-            String cleanedWord = cleanWord(sc.next());
+            String cleanedWord = cleanWord1(sc.next());
             System.out.println(cleanedWord);
             for (int i = 0; i < avengerRoster.length; i++) {
                 for (int j = 0; j < avengerRoster[i].length; j++) {
@@ -197,6 +197,22 @@ public class A2 {
 	        word = word.replaceAll("[^a-zA-Z0-9 ]", "").toLowerCase();
 	    }
 	    return word;
+	}
+	
+	private String cleanWord1(String word) {
+		if (word != null) { // check to make sure word is not null, in case of error
+            word = word.trim(); // trim off blank spaces
+            if (!word.equals("")) { // check for blank word 
+            
+	            //remove apostrophe
+	            int index = word.indexOf("'"); 
+	            if (index > 0) 
+	            	word = word.substring(0,index);
+	            // Remove special characters and convert to lower case
+	            word = word.replaceAll("[^a-zA-Z ]", "").toLowerCase();
+            }
+        }
+		return word;
 	}
 	
 
