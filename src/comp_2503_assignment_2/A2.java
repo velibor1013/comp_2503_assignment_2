@@ -31,9 +31,7 @@ public class A2 {
 	}
 
 	private void createdOrderedLists() {
-		// TODO: 
-		// Create a mover and traverse through the mentionList.
-		// Add each avenger to the other three lists. 			
+			
 		Node<Avenger> object1 = mostPopularList.getHead();
 		if (object1 == null || object1.getNext() == null) {
 	        return; // list is empty or has only one element, nothing to sort
@@ -97,6 +95,7 @@ public class A2 {
 	    }
 	    leastPopularList.setTail(lastSorted);
 	    
+	    //Alphabetical list sorting.
 	    swapped = true;
 	    lastSorted = null;
 	    while (swapped) {
@@ -125,37 +124,21 @@ public class A2 {
 	    }
 	    alphabticalList.setTail(lastSorted);
 	}
-	/**
-	 * read the input stream and keep track  
-	 * how many times avengers are mentioned by alias or last name.
-	 * @throws FileNotFoundException 
-	 */
+	
+	// Reads the input one word at a time
 	private void readInput() throws FileNotFoundException {
-		/*
-		In a loop, while the scanner object has not reached end of stream,
-		 	- read a word.
-		 	- clean up the word
-		    - if the word is not empty, add the word count. 
-		    - Check if the word is either an avenger alias or last name then
-				- Create a new avenger object with the corresponding alias and last name.
-				- if this avenger has already been mentioned, increase the frequency count for the object already in the list.
-				- if this avenger has not been mentioned before, add the newly created avenger to the end of the list, remember to set the frequency.
-		*/ 
-		//  /comp_2503_assignment_2/src/input2.txt
-		//  ..//comp_2503_assignment_2//src//input2.txt
-		//File file = new File(A2.class.getClassLoader().getResource("input4.txt").getFile());
-		File file = new File(input.next());
-
+		
+		File file = new File(input.next()); //ask for the file path as input
 		Scanner sc = new Scanner(file);
 		while (sc.hasNext()) {
-            String cleanedWord = cleanWord(sc.next());
-            if (!cleanedWord.isEmpty() || !cleanedWord.equals("")) {
+            String cleanedWord = cleanWord(sc.next()); //clean the words with the word cleaner
+            if (!cleanedWord.isEmpty() || !cleanedWord.equals("")) { //make sure the word isn't empty
 	            for (int i = 0; i < avengerRoster.length; i++) {
 	                for (int j = 0; j < avengerRoster[i].length; j++) {
-	                    if (cleanedWord.equals(avengerRoster[i][j])) {
+	                    if (cleanedWord.equals(avengerRoster[i][j])) { //compare each word to all the possible avengers
 	                    	Avenger currentAvenger; 
 	                		currentAvenger = new Avenger(avengerRoster[i][0], avengerRoster[i][1], 1);
-	                		addToLists(currentAvenger);                		
+	                		addToLists(currentAvenger); //once the avenger has been detected, it is sent to be added to the SLLs
 	                    }
 	                }
 	            }
@@ -177,7 +160,7 @@ public class A2 {
 		    }
 		    current = current.getNext();
 		}
-		if (!found) {
+		if (!found) { //adding the Avengers to all the lists, to be sorted later
 		    mentionList.nodeToAdd(currentAvenger);
 		    alphabticalList.nodeToAdd(currentAvenger);
 		    mostPopularList.nodeToAdd(currentAvenger);
@@ -209,7 +192,8 @@ public class A2 {
 		System.out.println("Total number of words: " + totalwordcount);
 		System.out.println("Number of Avengers Mentioned: " + mentionList.size());
 		System.out.println();
-		int count = 0;
+		
+		int count = 0; //count used to make sure the popularity lists don't go over 4
 
 		System.out.println("All avengers in the order they appeared in the input stream:");
 		// Todo: Print the list of avengers in the order they appeared in the input
@@ -244,10 +228,9 @@ public class A2 {
 	        count++;
 	    }
 	    System.out.println();
-		System.out.println(leastPopularList.size() +"\n");
 
 		System.out.println("All mentioned avengers in alphabetical order:");
-		// Todo: Print the list of avengers in alphabetical order
+		// Todo: Print the list of Avengers in alphabetical order
 		Node<Avenger> alphabetical = alphabticalList.getHead();
 	    while (alphabetical != null) {
 	        System.out.println(alphabetical.getData().toString());

@@ -21,7 +21,7 @@ public class SLL <T extends Comparable<T>>{
 		comparator = null;
 	}
 	
-	public void nodeToAdd(T data) {
+	public void nodeToAdd(T data) { //A2 call this method to add a Node with the AddToEnd method
 		addToEnd(data);
 	}
 	
@@ -32,6 +32,23 @@ public class SLL <T extends Comparable<T>>{
 		comparator = externalComp;
 	}
 
+	//Getters and Setters
+	public void setHead(Node<T> n) {
+		head = n;
+	}
+	
+	public void setTail(Node<T> n) {
+		tail = n;
+	}
+	
+	public Node<T> getHead() {
+		return head;
+	}
+	
+	public Node<T> getTail() {
+		return tail;
+	}
+	
 	public int size(){
 		int count = 0;
 		Node<T> mover = head;
@@ -58,7 +75,7 @@ public class SLL <T extends Comparable<T>>{
 	
 	
 	@SuppressWarnings("unused")
-	private void addToStart(T data) {
+	private void addToStart(T data) { //this could be used if we wanted to add to the start of an SLL.
 		Node<T> newNode = new Node<>(data);
 		if(isEmpty())
 			head = newNode;
@@ -113,10 +130,6 @@ public class SLL <T extends Comparable<T>>{
 			head = n;
 		}
 	}
-	
-	public void setHead(Node<T> n) {
-		head = n;
-	}
 
 	private void addTail(Node<T> n) {
 		if (tail == null) { // list is empty
@@ -126,20 +139,6 @@ public class SLL <T extends Comparable<T>>{
 			tail.setNext(n);
 			tail = n;
 		}
-	}
-	
-	public void setTail(Node<T> n) {
-		tail = n;
-	}
-	
-	
-	
-	public Node<T> getHead() {
-		return head;
-	}
-	
-	public Node<T> getTail() {
-		return tail;
 	}
 	
 	@SuppressWarnings("unlikely-arg-type")
