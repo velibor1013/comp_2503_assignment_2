@@ -128,7 +128,7 @@ public class A2 {
 	// Reads the input one word at a time
 	private void readInput() throws FileNotFoundException {
 		
-		File file = new File(input.next()); //ask for the file path as input
+		File file = new File(input.nextLine()); //ask for the file path as input
 		Scanner sc = new Scanner(file);
 		while (sc.hasNext()) {
             String cleanedWord = cleanWord(sc.next()); //clean the words with the word cleaner
